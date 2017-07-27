@@ -7,10 +7,10 @@ import { ScrollDirective } from './scroll.directive';
     CommonModule
   ],
   declarations: [
-   ScrollDirective,
+    ScrollDirective,
   ],
   exports: [
-   ScrollDirective,
+    ScrollDirective,
   ]
 })
 export class ScrollEventModule {
