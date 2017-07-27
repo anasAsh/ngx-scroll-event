@@ -49,7 +49,7 @@ you can also add `[bottomOffest]` to change when reaching bottom is alert is tru
 })
 export class AwesomeComponent {
   public handleScroll(event: ScrollEvent) {
-    console.log('scroll occured', event.originalEvent);
+    console.log('scroll occurred', event.originalEvent);
     if (event.isReachingBottom) {
       console.log(`the user is reaching the bottom`);
     }
