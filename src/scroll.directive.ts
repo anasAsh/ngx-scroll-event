@@ -7,7 +7,7 @@ export type ScrollEvent = {originalEvent: WindowEvent | ElementEvent, isReaching
 declare const window: {pageYOffset: number, innerHeight: number};
 
 @Directive({
-  selector: '[scroll]'
+  selector: '[detect-scroll]'
 })
 export class ScrollDirective {
   @Output() public onScroll = new EventEmitter<ScrollEvent>();

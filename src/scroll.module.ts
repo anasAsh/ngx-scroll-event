@@ -13,10 +13,10 @@ import { ScrollDirective } from './scroll.directive';
    ScrollDirective,
   ]
 })
-export class ScrollToModule {
+export class ScrollEventModule {
   static forRoot(): ModuleWithProviders {
     return {
-      ngModule: ScrollToModule
+      ngModule: ScrollDirective
     };
   }
 }

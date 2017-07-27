@@ -11,9 +11,9 @@ import * as import2 from '@angular/common/src/common_module';
 import * as import3 from '@angular/common/src/localization';
 import * as import4 from '@angular/core/src/di/injector';
 import * as import5 from '@angular/core/src/i18n/tokens';
-class ScrollToModuleInjector extends import0.NgModuleInjector<import1.ScrollToModule> {
+class ScrollEventModuleInjector extends import0.NgModuleInjector<import1.ScrollEventModule> {
   _CommonModule_0:import2.CommonModule;
-  _ScrollToModule_1:import1.ScrollToModule;
+  _ScrollEventModule_1:import1.ScrollEventModule;
   __NgLocalization_2:import3.NgLocaleLocalization;
   constructor(parent:import4.Injector) {
     super(parent,([] as any[]),([] as any[]));
@@ -22,18 +22,18 @@ class ScrollToModuleInjector extends import0.NgModuleInjector<import1.ScrollToMo
     if ((this.__NgLocalization_2 == null)) { (this.__NgLocalization_2 = new import3.NgLocaleLocalization(this.parent.get(import5.LOCALE_ID))); }
     return this.__NgLocalization_2;
   }
-  createInternal():import1.ScrollToModule {
+  createInternal():import1.ScrollEventModule {
     this._CommonModule_0 = new import2.CommonModule();
-    this._ScrollToModule_1 = new import1.ScrollToModule();
-    return this._ScrollToModule_1;
+    this._ScrollEventModule_1 = new import1.ScrollEventModule();
+    return this._ScrollEventModule_1;
   }
   getInternal(token:any,notFoundResult:any):any {
     if ((token === import2.CommonModule)) { return this._CommonModule_0; }
-    if ((token === import1.ScrollToModule)) { return this._ScrollToModule_1; }
+    if ((token === import1.ScrollEventModule)) { return this._ScrollEventModule_1; }
     if ((token === import3.NgLocalization)) { return this._NgLocalization_2; }
     return notFoundResult;
   }
   destroyInternal():void {
   }
 }
-export const ScrollToModuleNgFactory:import0.NgModuleFactory<import1.ScrollToModule> = new import0.NgModuleFactory(ScrollToModuleInjector,import1.ScrollToModule);
+export const ScrollEventModuleNgFactory:import0.NgModuleFactory<import1.ScrollEventModule> = new import0.NgModuleFactory(ScrollEventModuleInjector,import1.ScrollEventModule);
