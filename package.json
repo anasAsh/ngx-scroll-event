@@ -1,5 +1,5 @@
 {
-  "name": "ng-scroll",
+  "name": "ng-scroll-event",
   "version": "1.0.0",
   "description": "An Angular 2+ directive to handle scroll events on an element.",
   "scripts": {
