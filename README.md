@@ -27,23 +27,23 @@ export class AppModule { }
 
 
 In your template you may now add the `detect-scroll` attribute and `(onScroll)` event to any element.
+you can also add `[bottomOffest]` to change when reaching bottom is alert is true, defaults to 100, the value should be a number in pixels.
 
 ```typescript
 // app.awesome.component.ts
 @Component({
    ...
    template: `...
-        <!-- Further content here -->
-        <div detect-scroll (onScroll)="handleScroll($event)" id="container">
-            <section id="main-section">Bla bla bla</section>
-            <section id="test-section">Bla bla bla</section>
-            <section id="test-section">Bla bla bla</section>
-            <section id="test-section">Bla bla bla</section>
-            <section id="test-section">Bla bla bla</section>
-            <section id="test-section">Bla bla bla</section>
-            <section id="test-section">Bla bla bla</section>
-            <section id="test-section">Bla bla bla</section>
-            <section id="test-section">Bla bla bla</section>
+        <div detect-scroll (onScroll)="handleScroll($event)" [bottomOffest]="200">
+            <section>Bla bla bla</section>
+            <section>Bla bla bla</section>
+            <section>Bla bla bla</section>
+            <section>Bla bla bla</section>
+            <section>Bla bla bla</section>
+            <section>Bla bla bla</section>
+            <section>Bla bla bla</section>
+            <section>Bla bla bla</section>
+            <section>Bla bla bla</section>
         <div>
    ...`,
 })
