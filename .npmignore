@@ -1,9 +1,15 @@
 # Node generated files
-node_modules
+/node_modules
 npm-debug.log
+
 # OS generated files
 Thumbs.db
 .DS_Store
+
+# Angular
+*.ngfactory.ts
+/compiled
+
 # Ignored files
 *.ts
 !*.d.ts
