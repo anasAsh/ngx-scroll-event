@@ -66,7 +66,7 @@ export class AwesomeComponent {
       console.log(`the user is reaching the bottom`);
     }
     if (event.isWindowEvent) {
-      console.log(`This event is hapening on Window not on an element.`);
+      console.log(`This event is fired on Window not on an element.`);
     }
 
   }
