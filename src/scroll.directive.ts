@@ -6,6 +6,8 @@ export type ScrollEvent = {
   isWindowEvent: boolean
 };
 
+declare const window;
+
 @Directive({
   selector: '[detect-scroll]'
 })
