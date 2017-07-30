@@ -1,4 +1,4 @@
-import { NgModule, ModuleWithProviders } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ScrollDirective } from './scroll.directive';
 
@@ -13,10 +13,4 @@ import { ScrollDirective } from './scroll.directive';
     ScrollDirective,
   ]
 })
-export class ScrollEventModule {
-  static forRoot(): ModuleWithProviders {
-    return {
-      ngModule: ScrollDirective
-    };
-  }
-}
+export class ScrollEventModule { }

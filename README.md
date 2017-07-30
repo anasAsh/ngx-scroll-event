@@ -26,7 +26,7 @@ import { ScrollEventModule } from 'ngx-scroll-event';
 @NgModule({
   imports: [
     ...,
-    ScrollEventModule.forRoot(),
+    ScrollEventModule,
     ...,
   ]
 })
