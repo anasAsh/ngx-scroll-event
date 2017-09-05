@@ -13,7 +13,7 @@ declare const window: Window;
 })
 export class ScrollDirective {
   @Output() public onScroll = new EventEmitter<ScrollEvent>();
-  @Input() public bottomOffest: number = 100;
+  @Input() public bottomOffset: number = 100;
 
   constructor() { }
 
@@ -30,7 +30,7 @@ export class ScrollDirective {
   protected windowScrollEvent($event: Event) {
     const target = <Document>$event.target;
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-    const isReachingBottom = ( target.body.offsetHeight - (window.innerHeight + scrollTop) ) < this.bottomOffest;
+    const isReachingBottom = ( target.body.offsetHeight - (window.innerHeight + scrollTop) ) < this.bottomOffset;
     const emitValue: ScrollEvent = {isReachingBottom, originalEvent: $event, isWindowEvent: true};
     this.onScroll.emit(emitValue);
   }
@@ -39,7 +39,7 @@ export class ScrollDirective {
     const target = <HTMLElement>$event.target;
     const scrollPosition = target.scrollHeight - target.scrollTop;
     const offsetHeight = target.offsetHeight;
-    const isReachingBottom = (scrollPosition - offsetHeight) < this.bottomOffest;
+    const isReachingBottom = (scrollPosition - offsetHeight) < this.bottomOffset;
     const emitValue: ScrollEvent = {isReachingBottom, originalEvent: $event, isWindowEvent: false};
     this.onScroll.emit(emitValue);
   }
