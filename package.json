@@ -1,6 +1,6 @@
 {
 	"name": "ngx-scroll-event",
-	"version": "1.0.4",
+	"version": "1.0.5",
 	"description": "An Angular 2+ directive to handle scroll events on an element.",
 	"scripts": {
 		"build": "ngc -p tsconfig.json",
