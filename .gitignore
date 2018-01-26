@@ -20,6 +20,6 @@ Thumbs.db
 *.d.ts
 !/dist/*.js
 !/dist/*.map
-!/dist/*.d.ts
+!/dist/*.*
 #yarn
 yarn.lock
