@@ -2,7 +2,7 @@
 An Angular 2+ directive to emit an event if scroll occurs on an element or window.
 
 ## Features
-- Detect scroll on an element or window and emits an event, also calculates if the user is reaching the bottom of that element or not.
+- Detect scroll on an element or window and emits an event, also calculates if the user is reaching the top/bottom of that element or not.
 
 ## Install
 - With NPM
