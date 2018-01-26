@@ -18,10 +18,6 @@
 		"type": "git",
 		"url": "git+https://github.com/anasAsh/ng2-scroll-event"
 	},
-	"files": [
-		"src",
-		"index.ts"
-	],
 	"author": "anasAsh",
 	"keywords": [
 		"scroll",
