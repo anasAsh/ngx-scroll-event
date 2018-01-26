@@ -13,12 +13,13 @@ Thumbs.db
 *.ngfactory.ts
 *.ngsummary.json
 *.metadata.json
-/compiled
 
 # Ignored files
 *.js
 *.map
 *.d.ts
-
+!/dist/*.js
+!/dist/*.map
+!/dist/*.d.ts
 #yarn
 yarn.lock
