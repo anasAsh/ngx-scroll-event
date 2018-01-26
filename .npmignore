@@ -10,4 +10,5 @@ Thumbs.db
 *.ngfactory.ts
 
 # Ignored files
+*.ts
 !*.d.ts
