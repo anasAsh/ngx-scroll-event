@@ -1,8 +1,9 @@
 import { Directive, HostListener, Output, EventEmitter, Input } from '@angular/core';
 
 export type ScrollEvent = {
-  originalEvent: Event,
   isReachingBottom: boolean,
+  isReachingTop: boolean,
+  originalEvent: Event,
   isWindowEvent: boolean
 };
 
@@ -14,6 +15,7 @@ declare const window: Window;
 export class ScrollDirective {
   @Output() public onScroll = new EventEmitter<ScrollEvent>();
   @Input() public bottomOffset: number = 100;
+  @Input() public topOffset: number = 100;
 
   constructor() { }
 
@@ -30,8 +32,9 @@ export class ScrollDirective {
   protected windowScrollEvent($event: Event) {
     const target = <Document>$event.target;
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    const isReachingTop = scrollTop < this.topOffset;
     const isReachingBottom = ( target.body.offsetHeight - (window.innerHeight + scrollTop) ) < this.bottomOffset;
-    const emitValue: ScrollEvent = {isReachingBottom, originalEvent: $event, isWindowEvent: true};
+    const emitValue: ScrollEvent = {isReachingBottom, isReachingTop, originalEvent: $event, isWindowEvent: true};
     this.onScroll.emit(emitValue);
   }
 
@@ -39,8 +42,9 @@ export class ScrollDirective {
     const target = <HTMLElement>$event.target;
     const scrollPosition = target.scrollHeight - target.scrollTop;
     const offsetHeight = target.offsetHeight;
+    const isReachingTop = scrollPosition < this.topOffset;
     const isReachingBottom = (scrollPosition - offsetHeight) < this.bottomOffset;
-    const emitValue: ScrollEvent = {isReachingBottom, originalEvent: $event, isWindowEvent: false};
+    const emitValue: ScrollEvent = {isReachingBottom, isReachingTop, originalEvent: $event, isWindowEvent: false};
     this.onScroll.emit(emitValue);
   }
 
