@@ -8,8 +8,6 @@ Thumbs.db
 
 # Angular
 *.ngfactory.ts
-/compiled
 
 # Ignored files
-*.ts
 !*.d.ts
