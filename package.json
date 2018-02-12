@@ -1,7 +1,7 @@
 {
 	"name": "ngx-scroll-event",
-	"version": "1.0.8",
-	"description": "A fork of ngx-scroll-event (Fix isReachingTop for element type)",
+	"version": "1.0.7",
+	"description": "An Angular 2+ directive to handle scroll events on an element.",
 	"scripts": {
 		"build": "ngc -p tsconfig.json",
 		"lint": "tslint --type-check --project tsconfig.json src/**/*.ts",
@@ -16,9 +16,9 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/tjadli/ngx-scroll-event"
+		"url": "git+https://github.com/anasAsh/ng2-scroll-event"
 	},
-	"author": "tjadli",
+	"author": "anasAsh",
 	"keywords": [
 		"scroll",
 		"directive",
