@@ -42,7 +42,7 @@ export class ScrollDirective {
     const target = <HTMLElement>$event.target;
     const scrollPosition = target.scrollHeight - target.scrollTop;
     const offsetHeight = target.offsetHeight;
-    const isReachingTop = scrollPosition < this.topOffset;
+    const isReachingTop = target.scrollTop < this.topOffset;
     const isReachingBottom = (scrollPosition - offsetHeight) < this.bottomOffset;
     const emitValue: ScrollEvent = {isReachingBottom, isReachingTop, originalEvent: $event, isWindowEvent: false};
     this.onScroll.emit(emitValue);
