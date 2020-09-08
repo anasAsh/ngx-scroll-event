@@ -23,12 +23,12 @@ Import ScrollEvent and add it to the imports array of your module.
 
 ```typescript
 // app.module.ts
-import { ScrollEventModule } from 'ngx-scroll-event';
+import { NgxScrollEventModule } from 'ngx-scroll-event';
 
 @NgModule({
   imports: [
     ...,
-    ScrollEventModule,
+    NgxScrollEventModule,
     ...,
   ]
 })
