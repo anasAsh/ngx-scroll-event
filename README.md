@@ -1,4 +1,4 @@
-# Now supports Angualr 10+
+# Now supports Angular 10+
 
 # ngx-scroll-event
 An Angular 2+ directive to emit an event if scroll occurs on an element or window.
