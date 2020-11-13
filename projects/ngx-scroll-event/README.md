@@ -1,4 +1,4 @@
-# Now supports Angualr 10+
+# Now supports Angular 10+
 
 # ngx-scroll-event
 An Angular 2+ directive to emit an event if scroll occurs on an element or window.
@@ -23,12 +23,12 @@ Import ScrollEvent and add it to the imports array of your module.
 
 ```typescript
 // app.module.ts
-import { ScrollEventModule } from 'ngx-scroll-event';
+import { NgxScrollEventModule } from 'ngx-scroll-event';
 
 @NgModule({
   imports: [
     ...,
-    ScrollEventModule,
+    NgxScrollEventModule,
     ...,
   ]
 })
