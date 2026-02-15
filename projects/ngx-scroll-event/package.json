@@ -1,6 +1,6 @@
 {
   "name": "ngx-scroll-event",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "peerDependencies": {
     "@angular/common": "^21.0.0",
     "@angular/core": "^21.0.0"
