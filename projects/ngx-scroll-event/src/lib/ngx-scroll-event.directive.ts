@@ -10,7 +10,8 @@ export type NgxScrollEvent = {
 declare const window: Window;
 
 @Directive({
-  selector: '[libScrollEvent]'
+  selector: '[libScrollEvent]',
+  standalone: true
 })
 export class NgxScrollEventDirective {
   @Output() public onscroll = new EventEmitter<NgxScrollEvent>();

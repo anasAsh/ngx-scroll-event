@@ -1,102 +1,159 @@
-# Now supports Angular 10+
-
 # ngx-scroll-event
-An Angular 2+ directive to emit an event if scroll occurs on an element or window.
+
+Lightweight Angular directive that emits scroll events and detects when the user is reaching the top or bottom of an element or the window.
+
+**Angular 21** · Node.js ^20.19, ^22.12, or ≥24
+
+---
 
 ## Features
-- Detect scroll on an element or window and emits an event, also calculates if the user is reaching the top/bottom of that element or not.
+
+- **Element or window scroll** — Use the same directive on a scrollable element or rely on window scroll.
+- **Top/bottom detection** — Know when the user is near the top or bottom via configurable pixel offsets.
+- **Standalone & NgModule** — Works with standalone components (default) or the classic module setup.
+- **Typed events** — `NgxScrollEvent` includes `isReachingTop`, `isReachingBottom`, `originalEvent`, and `isWindowEvent`.
+
+---
 
 ## Install
-- With NPM
-```sh
-npm install ngx-scroll-event --save
+
+```bash
+npm install ngx-scroll-event
 ```
 
-- With Yarn
-```sh
+```bash
 yarn add ngx-scroll-event
 ```
 
-## Usage
-Import ScrollEvent and add it to the imports array of your module.
-
-
-```typescript
-// app.module.ts
-import { NgxScrollEventModule } from 'ngx-scroll-event';
-
-@NgModule({
-  imports: [
-    ...,
-    NgxScrollEventModule,
-    ...,
-  ]
-})
-export class AppModule { }
+```bash
+pnpm add ngx-scroll-event
 ```
 
-In your template you may now add the `libScrollEvent` attribute and `(onscroll)` event to any element.
-you can also add `[bottomOffset]` or `[topOffset]` to change when reaching bottom or top detection, bot values defaults to 100px, the value should be a number in pixels.
+---
+
+## Quick start
+
+### Standalone (recommended)
+
+Import the directive and add `libScrollEvent` plus the `(onscroll)` handler to any element (or the host for window scroll):
 
 ```typescript
-// app.awesome.component.ts
-
-...
-import { NgxScrollEvent } from 'ngx-scroll-event';
-...
+import { NgxScrollEventDirective, NgxScrollEvent } from 'ngx-scroll-event';
 
 @Component({
-   ...
-   template: `...
-        <div libScrollEvent (onscroll)="handleScroll($event)" [bottomOffset]="200" [topOffset]="200" >
-            <div>Bla bla bla</div>
-            <div>Bla bla bla</div>
-            <div>Bla bla bla</div>
-            <div>Bla bla bla</div>
-            <div>Bla bla bla</div>
-            <div>Bla bla bla</div>
-            <div>Bla bla bla</div>
-            <div>Bla bla bla</div>
-            <div>Bla bla bla</div>
-        <div>
-   ...`,
+  standalone: true,
+  imports: [NgxScrollEventDirective],
+  template: `
+    <div libScrollEvent (onscroll)="onScroll($event)">
+      <!-- scrollable content -->
+    </div>
+  `,
 })
-export class AwesomeComponent {
-  public handleScroll(event: NgxScrollEvent) {
-    console.log('scroll occurred', event.originalEvent);
-    if (event.isReachingBottom) {
-      console.log(`the user is reaching the bottom`);
-    }
-    if (event.isReachingTop) {
-      console.log(`the user is reaching the top`);
-    }
-    if (event.isWindowEvent) {
-      console.log(`This event is fired on Window not on an element.`);
-    }
-
+export class MyComponent {
+  onScroll(event: NgxScrollEvent) {
+    if (event.isReachingBottom) console.log('Near bottom');
+    if (event.isReachingTop) console.log('Near top');
+    if (event.isWindowEvent) console.log('Window scroll');
   }
 }
 ```
 
+### NgModule
 
+```typescript
+import { NgxScrollEventModule } from 'ngx-scroll-event';
 
-## Code scaffolding
+@NgModule({
+  imports: [NgxScrollEventModule],
+})
+export class AppModule {}
+```
 
-Run `ng generate component component-name --project ngx-scroll-event` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project ngx-scroll-event`.
-> Note: Don't forget to add `--project ngx-scroll-event` or else it will be added to the default project in your `angular.json` file. 
+Then in any template:
 
-## Build
+```html
+<div libScrollEvent (onscroll)="onScroll($event)">...</div>
+```
 
-Run `ng build ngx-scroll-event` to build the project. The build artifacts will be stored in the `dist/` directory.
+---
 
-## Publishing
+## API
 
-After building your library with `ng build ngx-scroll-event`, go to the dist folder `cd dist/ngx-scroll-event` and run `npm publish`.
+### Directive: `libScrollEvent`
 
-## Running unit tests
+| Input           | Type     | Default | Description                                      |
+|----------------|----------|---------|--------------------------------------------------|
+| `topOffset`    | `number` | `100`   | Pixels from top to consider "reaching top".      |
+| `bottomOffset` | `number` | `100`   | Pixels from bottom to consider "reaching bottom".|
 
-Run `ng test ngx-scroll-event` to execute the unit tests via [Karma](https://karma-runner.github.io).
+| Output     | Type               | Description                    |
+|------------|--------------------|--------------------------------|
+| `onscroll` | `NgxScrollEvent`   | Fired on scroll (element or window). |
 
-## Further help
+### Event: `NgxScrollEvent`
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+```ts
+interface NgxScrollEvent {
+  isReachingBottom: boolean;  // true when scroll is within bottomOffset of bottom
+  isReachingTop: boolean;     // true when scroll is within topOffset of top
+  originalEvent: Event;       // native scroll event
+  isWindowEvent: boolean;     // true when the scroll target is the window
+}
+```
+
+---
+
+## Examples
+
+### Custom offsets
+
+```html
+<div
+  libScrollEvent
+  (onscroll)="onScroll($event)"
+  [topOffset]="50"
+  [bottomOffset]="200">
+  ...
+</div>
+```
+
+### Infinite scroll
+
+```typescript
+onScroll(event: NgxScrollEvent) {
+  if (event.isReachingBottom && !this.loading) {
+    this.loading = true;
+    this.loadMore().finally(() => (this.loading = false));
+  }
+}
+```
+
+### Window scroll (e.g. “back to top” button)
+
+The directive listens to both the element and the window. Add it to any element (e.g. a root wrapper); in the handler, use `event.isWindowEvent` when you only care about window scroll:
+
+```typescript
+template: `<div libScrollEvent (onscroll)="onScroll($event)">...</div>`
+
+onScroll(event: NgxScrollEvent) {
+  if (event.isWindowEvent) {
+    this.showBackToTop = !event.isReachingTop;
+  }
+}
+```
+
+---
+
+## Development
+
+- **Build:** `npm run build:lib`
+- **Unit tests:** `ng test ngx-scroll-event`
+- **E2E:** `npx playwright install` once, then `npm run e2e`
+
+See [PUBLISHING.md](PUBLISHING.md) for release steps.
+
+---
+
+## License
+
+MIT · [GitHub](https://github.com/anasAsh/ngx-scroll-event)

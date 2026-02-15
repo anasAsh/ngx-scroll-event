@@ -1,46 +1,70 @@
 {
   "name": "ngx-scroll-event",
-  "version": "2.0.2",
+  "version": "3.0.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "e2e": "ng build ngx-scroll-event && npx playwright test",
+    "e2e:headed": "ng build ngx-scroll-event && npx playwright test --headed",
+    "build:lib": "ng build ngx-scroll-event",
+    "release:prep": "npm run build:lib && echo \"Next: cd dist/ngx-scroll-event && npm publish\""
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "~10.1.0",
-    "@angular/common": "~10.1.0",
-    "@angular/compiler": "~10.1.0",
-    "@angular/core": "~10.1.0",
-    "@angular/forms": "~10.1.0",
-    "@angular/platform-browser": "~10.1.0",
-    "@angular/platform-browser-dynamic": "~10.1.0",
-    "@angular/router": "~10.1.0",
+    "@angular/animations": "~21.0.0",
+    "@angular/common": "~21.0.0",
+    "@angular/compiler": "~21.0.0",
+    "@angular/core": "~21.0.0",
+    "@angular/forms": "~21.0.0",
+    "@angular/platform-browser": "~21.0.0",
+    "@angular/platform-browser-dynamic": "~21.0.0",
+    "@angular/router": "~21.0.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
-    "zone.js": "~0.10.2"
+    "zone.js": "~0.16.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.1001.0",
-    "@angular/cli": "~10.1.0",
-    "@angular/compiler-cli": "~10.1.0",
-    "@types/node": "^12.11.1",
-    "@types/jasmine": "~3.5.0",
+    "@angular-devkit/build-angular": "~21.0.0",
+    "@angular/cli": "~21.0.0",
+    "@angular/compiler-cli": "~21.0.0",
+    "@types/jasmine": "~3.6.0",
     "@types/jasminewd2": "~2.0.3",
+    "@types/node": "^12.11.1",
+    "ajv": "^8.18.0",
     "codelyzer": "^6.0.0",
-    "jasmine-core": "~3.6.0",
+    "jasmine-core": "~3.8.0",
     "jasmine-spec-reporter": "~5.0.0",
-    "karma": "~5.0.0",
+    "karma": "^6.3.0",
     "karma-chrome-launcher": "~3.1.0",
     "karma-coverage-istanbul-reporter": "~3.0.2",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
-    "ng-packagr": "^10.1.0",
+    "ng-packagr": "^21.0.0",
     "protractor": "~7.0.0",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
-    "typescript": "~4.0.2"
-  }
+    "typescript": ">=5.9.0 <6.0.0",
+    "@playwright/test": "^1.49.0"
+  },
+  "description": "Angular directive to emit scroll events with top/bottom detection",
+  "license": "MIT",
+  "keywords": [
+    "angular",
+    "scroll",
+    "directive",
+    "ngx",
+    "scroll-event",
+    "angular-21"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/anasAsh/ngx-scroll-event.git"
+  },
+  "bugs": {
+    "url": "https://github.com/anasAsh/ngx-scroll-event/issues"
+  },
+  "homepage": "https://github.com/anasAsh/ngx-scroll-event#readme"
 }

@@ -2,9 +2,7 @@ import { NgModule } from '@angular/core';
 import { NgxScrollEventDirective } from './ngx-scroll-event.directive';
 
 @NgModule({
-  declarations: [NgxScrollEventDirective],
-  imports: [
-  ],
+  imports: [NgxScrollEventDirective],
   exports: [NgxScrollEventDirective]
 })
 export class NgxScrollEventModule { }

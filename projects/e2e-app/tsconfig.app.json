@@ -1,0 +1,1 @@
+{"extends":"./tsconfig.json","compilerOptions":{"outDir":"../../out-tsc/e2e-app","types":[],"skipLibCheck":true},"files":["src/main.ts"],"include":["src/**/*.d.ts"]}

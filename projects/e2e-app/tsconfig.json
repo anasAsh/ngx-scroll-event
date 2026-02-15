@@ -1,0 +1,8 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../out-tsc/e2e-app",
+    "types": []
+  },
+  "include": ["src/**/*.ts"]
+}

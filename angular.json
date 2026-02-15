@@ -42,7 +42,49 @@
           }
         }
       }
-    }},
+    },
+    "e2e-app": {
+      "projectType": "application",
+      "root": "projects/e2e-app",
+      "sourceRoot": "projects/e2e-app/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "outputPath": "dist/e2e-app",
+            "index": "projects/e2e-app/src/index.html",
+            "browser": "projects/e2e-app/src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "projects/e2e-app/tsconfig.app.json",
+            "assets": [],
+            "styles": [
+              "projects/e2e-app/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "all"
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "buildTarget": "e2e-app:build"
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "e2e-app:build:production"
+            }
+          }
+        }
+      }
+    }
+  },
   "cli": {
     "analytics": "aa4057d1-dc44-4494-8179-edae509daebf"
   },

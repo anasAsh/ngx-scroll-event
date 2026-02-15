@@ -20,6 +20,7 @@
         "dist/ngx-scroll-event/ngx-scroll-event",
         "dist/ngx-scroll-event"
       ]
-    }
+    },
+    "skipLibCheck": true
   }
 }

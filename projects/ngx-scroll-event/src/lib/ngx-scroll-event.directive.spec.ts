@@ -1,63 +1,152 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { Component } from '@angular/core';
-import { NgxScrollEventDirective } from './ngx-scroll-event.directive';
-
+import { By } from '@angular/platform-browser';
+import { NgxScrollEventDirective, NgxScrollEvent } from './ngx-scroll-event.directive';
 
 @Component({
+  standalone: true,
+  imports: [NgxScrollEventDirective],
   template: `
-  <div libScrollEvent libScrollEvent (onscroll)="handleScroll($event)" [bottomOffset]="200" [topOffset]="200">some data</div>
+    <div
+      libScrollEvent
+      (onscroll)="handleScroll($event)"
+      [bottomOffset]="200"
+      [topOffset]="50"
+      style="height: 100px; overflow: auto;"
+    >
+      <div style="height: 400px;">scrollable content</div>
+    </div>
   `
 })
-// todo: fix unit tests
-class TestComponent { }
+class TestComponent {
+  lastEvent: NgxScrollEvent | null = null;
+  handleScroll(event: NgxScrollEvent): void {
+    this.lastEvent = event;
+  }
+}
+
+@Component({
+  standalone: true,
+  imports: [NgxScrollEventDirective],
+  template: `
+    <div libScrollEvent (onscroll)="handleScroll($event)" style="height: 80px; overflow: auto;">
+      <div style="height: 300px;">content</div>
+    </div>
+  `
+})
+class TestComponentWithDefaults {
+  lastEvent: NgxScrollEvent | null = null;
+  handleScroll(event: NgxScrollEvent): void {
+    this.lastEvent = event;
+  }
+}
 
 describe('NgxScrollEventDirective', () => {
   let fixture: ComponentFixture<TestComponent>;
-  let des;
+  let component: TestComponent;
+  let scrollEl: HTMLElement;
 
   beforeEach(() => {
-    fixture = TestBed.configureTestingModule({
-      declarations: [ NgxScrollEventDirective, TestComponent ]
-    })
-    .createComponent(TestComponent);
-
-    fixture.detectChanges(); // initial binding
-
-    // all elements with an attached HighlightDirective
-    des = fixture.debugElement.queryAll(By.directive(NgxScrollEventDirective));
-  });
-  
-  // color tests
-  it('should have three highlighted elements', () => {
-    expect(des.length).toBe(3);
-  });
-  
-  it('should color 1st <h2> background "yellow"', () => {
-    const bgColor = des[0].nativeElement.style.backgroundColor;
-    expect(bgColor).toBe('yellow');
-  });
-  
-  it('should color 2nd <h2> background w/ default color', () => {
-    const dir = des[1].injector.get(HighlightDirective) as HighlightDirective;
-    const bgColor = des[1].nativeElement.style.backgroundColor;
-    expect(bgColor).toBe(dir.defaultColor);
-  });
-  
-  it('should bind <input> background to value color', () => {
-    // easier to work with nativeElement
-    const input = des[2].nativeElement as HTMLInputElement;
-    expect(input.style.backgroundColor).toBe('cyan', 'initial backgroundColor');
-  
-    // dispatch a DOM event so that Angular responds to the input value change.
-    input.value = 'green';
-    input.dispatchEvent(newEvent('input'));
+    TestBed.configureTestingModule({
+      imports: [TestComponent]
+    });
+    fixture = TestBed.createComponent(TestComponent);
+    component = fixture.componentInstance;
     fixture.detectChanges();
-  
-    expect(input.style.backgroundColor).toBe('green', 'changed backgroundColor');
+    const des = fixture.debugElement.query(By.directive(NgxScrollEventDirective));
+    scrollEl = des.nativeElement as HTMLElement;
   });
-  
-  
-  it('bare <h2> should not have a customProperty', () => {
-    expect(bareH2.properties.customProperty).toBeUndefined();
+
+  it('should create host with directive attached', () => {
+    expect(fixture.debugElement.query(By.directive(NgxScrollEventDirective))).toBeTruthy();
+  });
+
+  it('should use bound bottomOffset and topOffset', () => {
+    const dir = fixture.debugElement
+      .query(By.directive(NgxScrollEventDirective))
+      .injector.get(NgxScrollEventDirective);
+    expect(dir.bottomOffset).toBe(200);
+    expect(dir.topOffset).toBe(50);
+  });
+
+  it('should default bottomOffset and topOffset to 100 when not bound', () => {
+    const defaultFixture = TestBed.createComponent(TestComponentWithDefaults);
+    defaultFixture.detectChanges();
+    const dir = defaultFixture.debugElement
+      .query(By.directive(NgxScrollEventDirective))
+      .injector.get(NgxScrollEventDirective);
+    expect(dir.bottomOffset).toBe(100);
+    expect(dir.topOffset).toBe(100);
+  });
+
+  it('should emit element scroll event with isWindowEvent false when element is scrolled', (done) => {
+    expect(component.lastEvent).toBeNull();
+
+    scrollEl.scrollTop = 10;
+    scrollEl.dispatchEvent(new Event('scroll'));
+
+    fixture.detectChanges();
+    // allow async emit
+    setTimeout(() => {
+      expect(component.lastEvent).toBeTruthy();
+      expect(component.lastEvent!.isWindowEvent).toBe(false);
+      expect(component.lastEvent!.originalEvent).toBeTruthy();
+      done();
+    }, 0);
+  });
+
+  it('should set isReachingTop when scroll is near top', (done) => {
+    scrollEl.scrollTop = 10;
+    scrollEl.dispatchEvent(new Event('scroll'));
+
+    setTimeout(() => {
+      expect(component.lastEvent).toBeTruthy();
+      expect(component.lastEvent!.isReachingTop).toBe(true);
+      done();
+    }, 0);
+  });
+
+  it('should set isReachingBottom when scroll is near bottom', (done) => {
+    scrollEl.scrollTop = 350;
+    scrollEl.dispatchEvent(new Event('scroll'));
+
+    setTimeout(() => {
+      expect(component.lastEvent).toBeTruthy();
+      expect(component.lastEvent!.isReachingBottom).toBe(true);
+      done();
+    }, 0);
+  });
+
+  it('should set isReachingTop false when scrolled down', (done) => {
+    scrollEl.scrollTop = 100;
+    scrollEl.dispatchEvent(new Event('scroll'));
+
+    setTimeout(() => {
+      expect(component.lastEvent).toBeTruthy();
+      expect(component.lastEvent!.isReachingTop).toBe(false);
+      done();
+    }, 0);
+  });
+
+  it('should set isReachingBottom false when at top', (done) => {
+    scrollEl.scrollTop = 0;
+    scrollEl.dispatchEvent(new Event('scroll'));
+
+    setTimeout(() => {
+      expect(component.lastEvent).toBeTruthy();
+      expect(component.lastEvent!.isReachingBottom).toBe(false);
+      done();
+    }, 0);
+  });
+
+  it('should pass through the original scroll event', (done) => {
+    const ev = new Event('scroll');
+    scrollEl.scrollTop = 10;
+    scrollEl.dispatchEvent(ev);
+
+    setTimeout(() => {
+      expect(component.lastEvent!.originalEvent).toBe(ev);
+      done();
+    }, 0);
   });
 });
